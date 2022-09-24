@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {Clear, LocationOn} from '@mui/icons-material';
 
 const Container = styled.div`
   width: 100vw;
-  height: 50px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -26,13 +26,22 @@ const ClearContainer = styled.span`
     right: '20px';
     position: 'fixed';
     cursor: 'pointer';
+    &:hover{
+      color: #e43737;
+    }
 `
 
 export default function Notification() {
+  const [visible, setVisible] = useState("flex");
+  const handleVisibility = () => {
+    setVisible("none");
+  }
   return (
-    <Container bg='#00B140'>
+    <Container bg='#00B140' style={{
+      display: visible
+    }}>
       <Note>Click on the <LocationOn /> button to share your current location.</Note>
-      <ClearContainer><Clear/></ClearContainer>
+      <ClearContainer onClick={handleVisibility}><Clear/></ClearContainer>
     </Container>
   )
 }

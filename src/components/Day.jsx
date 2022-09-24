@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Cloudy from '../assets/cloudy.png';
-
+import Sunny from '../assets/sun.png';
 
 const DayCard = styled.div`
   height: calc(100% - 20px);
@@ -58,12 +58,14 @@ const DayName = styled.div`
     margin-left: 3px;
   `
 
-export default function Day() {
+export default function Day({data}) {
   return (
     <DayCard>
-        <DayName>MON</DayName>
-        <Icon src={Cloudy}/>
-        <Temperature>20 <Unit>C</Unit></Temperature>
+        <DayName>{data.day}</DayName>
+        <Icon src={
+          data.text.split("").includes("Cloudy") ? Cloudy : Sunny
+        }/>
+        <Temperature> {Math.round(((data.high + data.low)  - 32 ) * 5/9) }<Unit>°C</Unit></Temperature>
     </DayCard>
   )
 }

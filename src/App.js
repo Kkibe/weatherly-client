@@ -1,8 +1,6 @@
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'
-import City from './components/City';
 import Footer from './components/Footer';
 import Main from './components/Main';
 import Notification from './components/Notification';
@@ -15,48 +13,33 @@ const Container = styled.div`
   background-color: rgba(112,134,146, 0.6);
 `
 
-const CitiesContainer = styled.div`
-  width: 100vw;
-  padding: 20px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-`
-
 function App() {
-  const [responseData, setResponseData] = useState([]);
-
-  let status;
-  const setStatus = () => {
-     if(document.readyState === 'interactive'){
-      status = 'interactive'
-      
-    } else return;
-  }
-  setStatus();
+  const [data, setData] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    ( function () {
-      const cityList = ['London', 'Paris', 'Nairobi', 'Moscow' ]
-      
-      cityList.forEach(city => {
-        axios.get(`https://api.weatherapi.com/v1/current.json?key=730a9b93e6c64a57bb9145731222206&q=${city}&aqi=no`).then(function (response) {
-          setResponseData(() => responseData.push(response.data));
-          console.log(responseData)
-        }).catch(function (error) {
-        console.error(error);
-        });
-      })
-    })()
-  }, [status])
+    const options = {
+      method: 'GET',
+      url: 'https://yahoo-weather5.p.rapidapi.com/weather',
+      params: {location: 'sunnyvale', format: 'json', u: 'f'},
+      headers: {
+        'X-RapidAPI-Key': '7015901614mshbeaa572245b6bffp123fd4jsn9b3a74df405d',
+        'X-RapidAPI-Host': 'yahoo-weather5.p.rapidapi.com'
+      }
+    };
+    axios.request(options).then(function (response) {
+      setData(response.data);
+
+      setLoading(false)
+    }).catch(function (error) {
+      setError(error);
+    });
+  }, [])
   return (
     <Container>
       <Notification />
-      {responseData  && <Main Item={responseData}/>}
-      <CitiesContainer>
-        {responseData && responseData.map(item => {return <City Item={item}/>})}
-        {!responseData && 'cities'}
-      </CitiesContainer>
+      {data && <Main data={data}/>}
       <Footer />
     </Container>
   );

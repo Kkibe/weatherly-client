@@ -14,32 +14,45 @@ const Container = styled.div`
 `
 
 const Time = styled.span`
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 26px;
+    font-weight: 600;
     color: white;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
 `
 
 const DaysContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  padding: 20px 10px;
+  padding: 10px 10px;
 `
         
-export default function Main({Item}) {
+export default function Main({data}) {
+  const [forecasts, setForecasts] = useState('');
+  const [current, setCurrent] = useState('');
+  const [extras, setExtras] = useState('');
+
+  useEffect(() => {
+    setForecasts(data.forecasts);
+    setCurrent(data.current_observation);
+    setExtras(data.location);
+  }, [])
 
   return (
     <Container>
-        <Time>time</Time>
-        <MainCard responseData={Item}/>
+        <Time>
+          {new Date().toDateString()}
+        </Time>
+        <MainCard responseData={current} extras={extras}/>
         <DaysContainer>
-          <Day />
-          <Day />
-          <Day />
-          <Day />
+          {
+            forecasts && forecasts.slice(1, 5).map(forecast => {
+                return <Day data={forecast} key={forecast.date + forecast.day} />
+            })
+          }
+
         </DaysContainer>
     </Container>
   )

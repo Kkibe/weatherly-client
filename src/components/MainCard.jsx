@@ -3,10 +3,11 @@ import {LocationOn} from '@mui/icons-material';
 import React from 'react';
 import styled from 'styled-components';
 import Cloudy from '../assets/cloudy.png';
+import Sunny from '../assets/sun.png';
 
 const Container = styled.div`
     width: 100vw;
-    min-height: 350px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,6 +44,7 @@ const Temperature = styled.div`
 const Condition = styled.div`
     font-size: 18px;
     color: white;
+    text-transform: uppercase;
 `
 
 const ButtonContainer = styled.div`
@@ -68,7 +70,7 @@ const Button = styled.button`
         color: white;
     }
 `
-export default function MainCard({responseData}) {
+export default function MainCard({responseData, extras}) {
   const [units, setUnits] = useState('C');
 
   const handleUnits = () => {
@@ -77,26 +79,34 @@ export default function MainCard({responseData}) {
     } else setUnits('C')
   }
 
+  const handleLocation = () => {
+    if (navigator.geolocation) {
+        const location = navigator.geolocation.getCurrentPosition();
+        alert(location);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+    
+  }
+
   return (
     <Container>
         <Name>
-            {responseData && (responseData[0].location.name  + ", ")}
-            {responseData && (responseData[0].location.country)}
-            {!responseData && "Nairobi, Kenya"}
+            {extras && (extras.city  + ", ")}
+            {extras && (extras.country)}
         </Name>
-        <DateContainer>{responseData && (responseData[0].location.localtime.split(" ")[0])}</DateContainer>
+        <DateContainer>{new Date().toLocaleDateString()}</DateContainer>
         <Icon src={
-              !responseData ? Cloudy : "https:" + responseData[0].current.condition.icon
+              responseData && responseData.condition.text.split("").includes("Cloudy") ? Cloudy : Sunny
             }/>
         <Temperature>
-        {responseData && (units=== 'C' ? responseData[0].current.temp_c : responseData[0].current.temp_f)}°{units}
+        {responseData && (units=== 'C' ? Math.round((responseData.condition.temperature  - 32 ) * 5/9)  : responseData.condition.temperature)}°{units}
         </Temperature>
         <Condition>
-            {responseData && (responseData[0].current.condition.text)}
-            {!responseData && 'rainy'}
+            {responseData && (responseData.condition.text)}
         </Condition>
         <ButtonContainer>
-            <Button><LocationOn /></Button>
+            <Button onClick = {handleLocation}><LocationOn /></Button>
             <Button onClick={handleUnits}>°{units}</Button>
         </ButtonContainer>
     </Container>

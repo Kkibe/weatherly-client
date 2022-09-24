@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     width: 100vw;
-    height: 200px;
+    height: 150px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,7 +26,7 @@ const Wrapper = styled.div`
 `
 
 const Link = styled.a`
-  color: #6D8CA0;
+  color: #598cad;
 	font-weight: 700;
 	text-decoration: none;
   cursor: pointer;
@@ -44,7 +45,7 @@ export default function Footer() {
         <Link href="https://www.linkedin.com/in/kibetkorir"><LinkedIn /></Link>
         <Link href="https://github.com/K-kibet/"><GitHub /></Link>
       </IconContainer>
-      <Wrapper>Created by <Link href='https://k-kibet.github.io/' style={{
+      <Wrapper>Created with ❤️ by <Link href='https://k-kibet.github.io/' style={{
         marginLeft: '10px'
       }}>Kibet</Link></Wrapper>
     </Container>
