@@ -1,9 +1,11 @@
-import {useState } from 'react';
+import {useEffect, useState } from 'react';
 import {LocationOn} from '@mui/icons-material';
+import { useGeolocated } from "react-geolocated";
 import React from 'react';
 import styled from 'styled-components';
 import Cloudy from '../assets/cloudy.png';
 import Sunny from '../assets/sun.png';
+import axios from 'axios';
 
 const Container = styled.div`
     width: 100vw;
@@ -70,8 +72,18 @@ const Button = styled.button`
         color: white;
     }
 `
-export default function MainCard({responseData, extras}) {
+export default function MainCard({responseData, extras, location, value}) {
   const [units, setUnits] = useState('C');
+  const {locale, setLocale} = location;
+  const {data, setData} = value
+
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+  useGeolocated({
+      positionOptions: {
+          enableHighAccuracy: false,
+      },
+      userDecisionTimeout: 5000,
+  });
 
   const handleUnits = () => {
     if(units === 'C'){
@@ -79,14 +91,43 @@ export default function MainCard({responseData, extras}) {
     } else setUnits('C')
   }
 
+
+
   const handleLocation = () => {
-    if (navigator.geolocation) {
-        const location = navigator.geolocation.getCurrentPosition();
-        alert(location);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
-    
+    !isGeolocationAvailable ? (
+        alert("Geolocation is not supported by this browser.")
+    ) : !isGeolocationEnabled ? (
+        alert("Geolocation is not enabled")
+    ) : coords ? (
+        setLocale(coords)
+    ) : (
+        alert("Loading Location")
+    );
+
+
+    const options = {
+        method: 'GET',
+        url: 'https://yahoo-weather5.p.rapidapi.com/weather',
+        params: {format: 'json', u: 'f'},
+        headers: {
+          'X-RapidAPI-Key': '7015901614mshbeaa572245b6bffp123fd4jsn9b3a74df405d', 
+          'X-RapidAPI-Host': 'yahoo-weather5.p.rapidapi.com'
+        }
+      };
+  
+      const getLocation = () => {
+        if(locale) {
+          options.params.lat = locale.latitude
+          options.params.long = locale.longitude  
+          axios.request(options).then(function (response) {
+            setData(response.data);
+          }).catch(function (error) {
+              return
+          });  
+        } 
+      }
+  
+      getLocation()
   }
 
   return (

@@ -24,15 +24,17 @@ const Time = styled.span`
 
 const DaysContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
   padding: 10px 10px;
 `
         
-export default function Main({data}) {
+export default function Main({value, location}) {
   const [forecasts, setForecasts] = useState('');
   const [current, setCurrent] = useState('');
   const [extras, setExtras] = useState('');
+  const {data, setData} = value
 
   useEffect(() => {
     setForecasts(data.forecasts);
@@ -45,7 +47,7 @@ export default function Main({data}) {
         <Time>
           {new Date().toDateString()}
         </Time>
-        <MainCard responseData={current} extras={extras}/>
+        <MainCard responseData={current} extras={extras} location={location} value={data}/>
         <DaysContainer>
           {
             forecasts && forecasts.slice(1, 5).map(forecast => {

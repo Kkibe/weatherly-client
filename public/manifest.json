@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Weather Today",
+  "name": "Get daily weather condition and forecast of your locality and major cities",
   "icons": [
     {
       "src": "favicon.ico",
