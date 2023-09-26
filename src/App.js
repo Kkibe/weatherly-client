@@ -21,8 +21,8 @@ function App() {
       
       <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='store' element={<Store />} />
-          <Route path='contact' element={<div />} />
+          <Route path='/store' element={<Store />} />
+          <Route path='/contact' element={<div />} />
           <Route path='*' element={<Error />}/>
       </Routes>
     </Container>
