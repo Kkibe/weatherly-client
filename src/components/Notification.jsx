@@ -4,12 +4,12 @@ import {Clear, LocationOn} from '@mui/icons-material';
 
 const Container = styled.div`
   width: 100vw;
-  height: 40px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   color: white;
-  background-color: ${props => props.bg};
+  background: ${props => props.bg};
   position: relative;
 
 `
@@ -21,13 +21,18 @@ const Note = styled.div`
 
 const ClearContainer = styled.span`
     color: 'white';
-    font-size: '24px';
+    font-size: '20px';
     font-weight: '600';
-    right: '20px';
-    position: 'fixed';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
     cursor: 'pointer';
     &:hover{
-      color: #e43737;
+      color: #ff1616;
+      border-radius: 50%;
+      background-color:#e5e5e5;
     }
 `
 
@@ -37,7 +42,7 @@ export default function Notification() {
     setVisible("none");
   }
   return (
-    <Container bg='#00B140' style={{
+    <Container bg='#2dc245' style={{
       display: visible
     }}>
       <Note>Click on the <LocationOn /> button to share your current location.</Note>

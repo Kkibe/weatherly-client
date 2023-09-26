@@ -16,7 +16,6 @@ const Container = styled.div`
 const Time = styled.span`
     font-size: 26px;
     font-weight: 600;
-    color: white;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -41,7 +40,7 @@ export default function Main({value, location}) {
     setCurrent(data.current_observation);
     setExtras(data.location);
   }, [])
-
+  
   return (
     <Container>
         <Time>

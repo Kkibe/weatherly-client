@@ -16,7 +16,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-![react-app](./src/assets/Screenshot%202022-09-24%208.07.56%20PM.png)
+
+### Technologies and Tools used:
+- StyledComponent
+- @mui/icons-material
+- axios
+- react-geolocated
+
+
+
+![Alt text](https://raw.githubusercontent.com/styled-components/brand/master/styled-components.png)
+
+![Alt text](https://mui.com/static/logo.png)

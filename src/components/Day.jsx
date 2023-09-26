@@ -8,8 +8,10 @@ const DayCard = styled.div`
   height: 8vw;
   max-height: 160px;
   min-height: 140px;
-  min-width: 180px;
+  min-width: 200px;
   position: relative;
+
+
   transition: transform 250ms;
   width: calc(100% / 7);
   display: flex;
@@ -22,20 +24,15 @@ const DayCard = styled.div`
 
   backdrop-filter: blur(3px);
   background-color: rgba(255,255,255, 0.4);
-  border: 1px solid rgba(255,255,255, 0.2);
+  
   border-radius: 10px;
-  box-shadow: 2px 2px 4px rgba(0, 0,0, 0.25);
-  &:last-of-type {
-    margin-right: 5px;
-  }
+  box-shadow: 2px 2px 3px #e5e5e5;
 `
 
 const Icon = styled.img`
   width: 60px;
   object-fit: fill;
   object-position: center;
-
-  font-size: 3.5em;
   text-shadow: 2px 2px 2px rgba(black, 0.1);
 `
 const Temperature = styled.div`
@@ -43,17 +40,15 @@ const Temperature = styled.div`
   display: flex;
   font-size: 0.9em;
   justify-content: center;
-  color:#46aab3;
+  color:#444443;
 `
 
 const DayName = styled.div`
   font-size: 0.9em;
   text-transform: uppercase;
-  color:#46aab3;
+  color:#444443;
 `
-
-
-  const Unit = styled.span`
+const Unit = styled.span`
     font-size: 0.8em;
     margin-left: 3px;
   `

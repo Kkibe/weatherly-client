@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 `
 
 const Link = styled.a`
-  color: #598cad;
+  color: #444443;
 	font-weight: 700;
 	text-decoration: none;
   cursor: pointer;

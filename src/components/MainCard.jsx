@@ -1,11 +1,12 @@
 import {useEffect, useState } from 'react';
-import {LocationOn} from '@mui/icons-material';
+import {LocationOn, ShoppingCart} from '@mui/icons-material';
 import { useGeolocated } from "react-geolocated";
 import React from 'react';
 import styled from 'styled-components';
 import Cloudy from '../assets/cloudy.png';
 import Sunny from '../assets/sun.png';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
     width: 100vw;
@@ -14,20 +15,19 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    margin: 20px 0px;
+    margin: 10px;
     position: relative;
 `
 
 const Name = styled.h1`
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
-    color: white;
 `
 
 const DateContainer = styled.div`
     font-size: 22px;
     font-weight: 500;
-    color: #46aab3;
+    color: #444443;
 `
 const Icon = styled.img`
   width: 100px;
@@ -40,12 +40,12 @@ const Temperature = styled.div`
   display: flex;
   font-size: 22px;
   justify-content: center;
-  color:#fff;
+  color:#444443;
 `
 
 const Condition = styled.div`
     font-size: 18px;
-    color: white;
+    color: #444443;
     text-transform: uppercase;
 `
 
@@ -63,13 +63,37 @@ const Button = styled.button`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 1px solid white;
-    background-color: transparent;
+    border: none;
+    background-color: #e5e5e5;
     cursor: pointer;
-    color: white;
+    color: #444443;
     *{
         font-size: 18px;
-        color: white;
+    }
+    
+    &:hover{
+      border: 1px solid #444443;
+    }
+`
+
+const Link = styled.a`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #e5e5e5;
+    cursor: pointer;
+    color: #444443;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    *{
+        font-size: 18px;
+    }
+    
+    &:hover{
+      border: 1px solid #444443;
     }
 `
 export default function MainCard({responseData, extras, location, value}) {
@@ -90,7 +114,6 @@ export default function MainCard({responseData, extras, location, value}) {
         setUnits('F')
     } else setUnits('C')
   }
-
 
 
   const handleLocation = () => {
@@ -147,6 +170,7 @@ export default function MainCard({responseData, extras, location, value}) {
             {responseData && (responseData.condition.text)}
         </Condition>
         <ButtonContainer>
+            <Link href='/store'><ShoppingCart /></Link>
             <Button onClick = {handleLocation}><LocationOn /></Button>
             <Button onClick={handleUnits}>°{units}</Button>
         </ButtonContainer>
